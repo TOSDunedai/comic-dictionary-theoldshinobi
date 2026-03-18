@@ -20,7 +20,10 @@ import json
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-# MongoDB connection
+print("DEBUG MONGO_URL exists:", "MONGO_URL" in os.environ)
+print("DEBUG MONGO_URI exists:", "MONGO_URI" in os.environ)
+print("DEBUG DB_NAME exists:", "DB_NAME" in os.environ)
+
 mongo_url = os.getenv('MONGO_URL') or os.getenv('MONGO_URI')
 if not mongo_url:
     raise RuntimeError('MONGO_URL ou MONGO_URI não definida')
