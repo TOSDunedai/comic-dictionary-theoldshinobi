@@ -20,9 +20,15 @@ import json
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-mongo_url = os.environ['MONGO_URL']
+# MongoDB connection
+mongo_url = os.getenv('MONGO_URL') or os.getenv('MONGO_URI')
+if not mongo_url:
+    raise RuntimeError('MONGO_URL ou MONGO_URI não definida')
+
+db_name = os.getenv('DB_NAME', 'comic_dictionary')
+
 client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+db = client[db_name]
 
 # Notion client
 notion_token = os.environ.get('NOTION_TOKEN')
